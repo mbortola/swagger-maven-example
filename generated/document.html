@@ -20,17 +20,19 @@ Api Version: v1
 
 ## APIs
 ### /pet
+#### Overview
+Operations about pets
 
-#### **PUT** `/pet`
-##### updatePet 
+#### **GET** `/pet/{petId}`
+##### getPetById 
 
-Update an existing pet
-
+Find pet by ID
+Returns a pet when ID < 10.  ID > 10 or nonintegers will simulate API error conditions
 
 ###### URL
-http://petstore.swagger.wordnik.com/api/pet
+http://petstore.swagger.wordnik.com/api/pet/{petId}
 ###### Parameters
-- body
+- path
 
 <table border="1">
     <tr>
@@ -40,15 +42,15 @@ http://petstore.swagger.wordnik.com/api/pet
         <th>Data Type</th>
     </tr>
     <tr>
-        <th>body</th>
+        <th>petId</th>
         <td>true</td>
-        <td>Pet object that needs to be added to the store</td>
-        <td><a href="#Pet">Pet</a></td>
+        <td>ID of pet that needs to be fetched</td>
+        <td>string</td>
     </tr>
 </table>
 
 ###### Response
-[](#)
+[Pet](#Pet)
 
 
 ###### Errors
@@ -56,7 +58,6 @@ http://petstore.swagger.wordnik.com/api/pet
 |-------------|-------------|----------------|
 | 400    | Invalid ID supplied | - |
 | 404    | Pet not found | - |
-| 405    | Validation exception | - |
 
 
 - - -
@@ -94,6 +95,45 @@ http://petstore.swagger.wordnik.com/api/pet
 | Status Code | Reason      | Response Model |
 |-------------|-------------|----------------|
 | 405    | Invalid input | - |
+
+
+- - -
+#### **PUT** `/pet`
+##### updatePet 
+
+Update an existing pet
+
+
+###### URL
+http://petstore.swagger.wordnik.com/api/pet
+###### Parameters
+- body
+
+<table border="1">
+    <tr>
+        <th>Parameter</th>
+        <th>Required</th>
+        <th>Description</th>
+        <th>Data Type</th>
+    </tr>
+    <tr>
+        <th>body</th>
+        <td>true</td>
+        <td>Pet object that needs to be added to the store</td>
+        <td><a href="#Pet">Pet</a></td>
+    </tr>
+</table>
+
+###### Response
+[](#)
+
+
+###### Errors
+| Status Code | Reason      | Response Model |
+|-------------|-------------|----------------|
+| 400    | Invalid ID supplied | - |
+| 404    | Pet not found | - |
+| 405    | Validation exception | - |
 
 
 - - -
@@ -187,56 +227,20 @@ http://petstore.swagger.wordnik.com/api/pet/findByTags
 
 
 - - -
-#### **GET** `/pet/{petId}`
-##### getPetById 
-
-Find pet by ID
-Returns a pet when ID < 10.  ID > 10 or nonintegers will simulate API error conditions
-
-###### URL
-http://petstore.swagger.wordnik.com/api/pet/{petId}
-###### Parameters
-- path
-
-<table border="1">
-    <tr>
-        <th>Parameter</th>
-        <th>Required</th>
-        <th>Description</th>
-        <th>Data Type</th>
-    </tr>
-    <tr>
-        <th>petId</th>
-        <td>true</td>
-        <td>ID of pet that needs to be fetched</td>
-        <td>string</td>
-    </tr>
-</table>
-
-###### Response
-[Pet](#Pet)
-
-
-###### Errors
-| Status Code | Reason      | Response Model |
-|-------------|-------------|----------------|
-| 400    | Invalid ID supplied | - |
-| 404    | Pet not found | - |
-
-
-- - -
 ### /store
+#### Overview
+Operations about store
 
-#### **GET** `/store/order/{orderId}`
-##### getOrderById 
+#### **POST** `/store/order`
+##### placeOrder 
 
-Find purchase order by ID
-For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
+Place an order for a pet
+
 
 ###### URL
-http://petstore.swagger.wordnik.com/api/store/order/{orderId}
+http://petstore.swagger.wordnik.com/api/store/order
 ###### Parameters
-- path
+- body
 
 <table border="1">
     <tr>
@@ -246,10 +250,10 @@ http://petstore.swagger.wordnik.com/api/store/order/{orderId}
         <th>Data Type</th>
     </tr>
     <tr>
-        <th>orderId</th>
+        <th>body</th>
         <td>true</td>
-        <td>ID of pet that needs to be fetched</td>
-        <td>string</td>
+        <td>order placed for purchasing the pet</td>
+        <td><a href="#Order">Order</a></td>
     </tr>
 </table>
 
@@ -260,8 +264,7 @@ http://petstore.swagger.wordnik.com/api/store/order/{orderId}
 ###### Errors
 | Status Code | Reason      | Response Model |
 |-------------|-------------|----------------|
-| 400    | Invalid ID supplied | - |
-| 404    | Order not found | - |
+| 400    | Invalid Order | - |
 
 
 - - -
@@ -303,16 +306,16 @@ http://petstore.swagger.wordnik.com/api/store/order/{orderId}
 
 
 - - -
-#### **POST** `/store/order`
-##### placeOrder 
+#### **GET** `/store/order/{orderId}`
+##### getOrderById 
 
-Place an order for a pet
-
+Find purchase order by ID
+For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
 
 ###### URL
-http://petstore.swagger.wordnik.com/api/store/order
+http://petstore.swagger.wordnik.com/api/store/order/{orderId}
 ###### Parameters
-- body
+- path
 
 <table border="1">
     <tr>
@@ -322,10 +325,10 @@ http://petstore.swagger.wordnik.com/api/store/order
         <th>Data Type</th>
     </tr>
     <tr>
-        <th>body</th>
+        <th>orderId</th>
         <td>true</td>
-        <td>order placed for purchasing the pet</td>
-        <td><a href="#Order">Order</a></td>
+        <td>ID of pet that needs to be fetched</td>
+        <td>string</td>
     </tr>
 </table>
 
@@ -336,11 +339,14 @@ http://petstore.swagger.wordnik.com/api/store/order
 ###### Errors
 | Status Code | Reason      | Response Model |
 |-------------|-------------|----------------|
-| 400    | Invalid Order | - |
+| 400    | Invalid ID supplied | - |
+| 404    | Order not found | - |
 
 
 - - -
 ### /user
+#### Overview
+Operations about user
 
 #### **GET** `/user/{username}`
 ##### getUserByName 

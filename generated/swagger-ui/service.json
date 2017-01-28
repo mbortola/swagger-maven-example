@@ -5,11 +5,11 @@
     "path" : "/store.{format}",
     "description" : "Operations about store"
   }, {
-    "path" : "/pet.{format}",
-    "description" : "Operations about pets"
-  }, {
     "path" : "/user.{format}",
     "description" : "Operations about user"
+  }, {
+    "path" : "/pet.{format}",
+    "description" : "Operations about pets"
   } ],
   "info" : {
     "title" : "Swagger Maven Plugin Sample",
